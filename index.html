@@ -1,0 +1,106 @@
+<!--
+ * @Author: LucasYan
+ * @Date: 2020-02-24 17:39:06
+ * @LastEditors: LucasYan
+ * @LastEditTime: 2020-02-24 17:58:15
+ * @Description: 
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" id="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="applicable-device" content="mobile">
+    <meta name="robots" content="all">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="author" content="zhangdaxian">
+    <meta name="Copyright" content="zhangdaxian">
+    <meta name="applicable-device" content="mobile">
+    <title>一镜到底</title>
+    <script>
+        var screenState = 'portrait';
+        var defaultFontSize = 0;
+        var rem = 0;
+        (function (win, doc) {
+            function setDefaultFontSize() {
+                var d = window.document.createElement('div')
+                d.style.width = '1rem'
+                d.style.display = "none"
+                var head = window.document.getElementsByTagName('head')[0]
+                head.appendChild(d)
+                defaultFontSize = parseFloat(window.getComputedStyle(d, null).getPropertyValue('width'))
+            }
+
+            function setFont() {
+                var designWidth = 750;
+                var rem2px = 100;
+                if (document.documentElement.clientWidth < 500) {
+                    screenState = 'portrait'
+                    if (document.body != null) {
+                        document.body.className = 'portrait'
+                    }
+                    var designWidth = 750;
+                } else {
+                    screenState = 'landscape'
+                    if (document.body != null) {
+                        document.body.className = 'landscape'
+                    }
+                    var designWidth = 1334;
+                }
+                if (/iPad|iPod/i.test(navigator.userAgent) && document.documentElement.clientWidth < document.documentElement.clientHeight) {
+                    screenState = 'portrait'
+                    if (document.body != null) {
+                        document.body.className = 'portrait'
+                    }
+                    var designWidth = 750;
+                }
+                document.documentElement.style.fontSize = window.innerWidth / designWidth * rem2px / defaultFontSize * 100 + '%';
+                rem = window.innerWidth / designWidth * rem2px
+
+            }
+            setDefaultFontSize()
+            setFont()
+            if (!win.addEventListener) return;
+            win.addEventListener('resize', setFont, false)
+        })(window, document)
+    </script>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            -webkit-user-select: none;
+            user-select: none;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        body {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            color: #2a261c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei";
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+    <script src="js/zepto.js"></script>
+    <script src="js/pixi.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
